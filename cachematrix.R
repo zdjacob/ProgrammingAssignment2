@@ -1,3 +1,25 @@
+## STEPS TO REPLICATE AND SEE OUTPUT
+##  c = rbind(c(1, -1/4), c(-1/4, 1)) #### Create a invertible square matrix
+##  ret<-makeCacheMatrix(c) ## Initialize the cached special matrix.
+##  ret$get() ## Returns the inputted matrix
+##  cacheSolve(ret) ## Calculating and initializing the inverse matrix.
+
+
+# > cacheSolve(ret)     # Calculating for first time
+# Inverse not cached. Calcing the inverse...
+# [,1]      [,2]
+# [1,] 1.0666667 0.2666667
+# [2,] 0.2666667 1.0666667
+# 
+# 
+# > cacheSolve(ret)     # Calculating for second time
+# Inverse is cached. Getting from there...
+# [,1]      [,2]
+# [1,] 1.0666667 0.2666667
+# [2,] 0.2666667 1.0666667
+
+
+
 ##        STEP BY STEP PROGRESS OF THE CODE
 
 ## makeCacheMatrix is the function that records the input matrix and has the
@@ -13,9 +35,14 @@ makeCacheMatrix <- function(x = matrix()) {
     
     get<-function() x
     
+    set <- function(y) {
+      x <<- y
+      inverseRecorded <<- NULL
+    }
+    
     getInverse<-function() inverseRecorded
     
-    list(get=get,getInverse=getInverse,setInverse=setInverse)
+    list(set=set,get=get,getInverse=getInverse,setInverse=setInverse)
 }
 
 ##        STEP BY STEP PROGRESS OF THE CODE
